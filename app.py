@@ -3,8 +3,8 @@ Just a simple hello-world app.
 """
 
 import os
-from flask import Flask
 
+from flask import Flask
 
 app = Flask(__name__)
 
