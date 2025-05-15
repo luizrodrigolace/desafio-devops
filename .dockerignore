@@ -1,0 +1,27 @@
+# Evita o ambiente virtual local
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Git e configs
+.git/
+.gitignore
+.dockerignore
+
+# Arquivos de configuração locais e ferramentas
+*.log
+bandit_report.json
+.pre-commit-config.yaml
+poetry.lock
+pyproject.toml
+
+# Docs (opcional, se não forem necessários no container)
+docs/
+
+# Editor e sistema
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
