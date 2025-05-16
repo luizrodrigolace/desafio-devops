@@ -9,6 +9,8 @@ services:
       - .:/app  # Bind mount: pasta atual do host -> /app no container
     networks:
       - desafio-devops
+    env_file:
+      - .env
 
 networks:
   desafio-devops:
