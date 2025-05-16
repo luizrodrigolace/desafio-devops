@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # Bind mount para hot reload / código local
+    env_file:
+      - .env
+    environment:
+      - LOCAL=true
+    networks:
+      - desafio-devops
+
+networks:
+  desafio-devops:
+    driver: bridge
