@@ -10,8 +10,8 @@ ADD . .
 # Instala os requisitos e adiciona permissão de execução ao entrypoint
 RUN pip install --no-cache-dir -r requirements.txt && chmod +x start.sh
 
-# Sinaliza que vai expor a porta que o Gunicorn usará
-EXPOSE 8000
+# Exponha a porta 8000 que seu app vai usar
+EXPOSE 8080
 
-# Comando para iniciar a aplicação
+# Comando para iniciar a aplicação via start.sh
 ENTRYPOINT ["/app/start.sh"]
