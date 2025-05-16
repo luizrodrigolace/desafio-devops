@@ -1,0 +1,42 @@
+name: Deploy Dev
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy to GCP - Dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6  # ou a versão que preferir
+
+      - name: Authenticate with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS_DEV }}
+
+      - name: Set GCP Project and Region
+        run: |
+          echo "GOOGLE_CLOUD_PROJECT=desafio-devops-dev" >> $GITHUB_ENV
+          echo "GOOGLE_CLOUD_REGION=southamerica-east1" >> $GITHUB_ENV
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./infra/dev
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: ./infra/dev
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: ./infra/dev
