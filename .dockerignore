@@ -1,6 +1,6 @@
 # Evita o ambiente virtual local
 venv/
-__pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 *.pyd
