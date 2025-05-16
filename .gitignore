@@ -9,3 +9,4 @@ instance/
 .env-dev
 poetry.lock
 infra/dev/desafio-devops-dev-51cc0f412da9.json
+.terraform/
