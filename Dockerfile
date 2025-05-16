@@ -4,18 +4,14 @@ FROM python:3.10-slim
 # Define diretório de trabalho
 WORKDIR /app
 
-# Copia arquivos necessários
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+# Copia a aplicação
+ADD . .
 
-# Copia o restante da aplicação
-COPY . .
+# Instala os requisitos e adiciona permissão de execução ao entrypoint
+RUN pip install --no-cache-dir -r requirements.txt && chmod +x start.sh
 
-# Garante que o script de inicialização tenha permissão de execução
-RUN chmod +x start.sh
-
-# Expõe a porta que o Gunicorn usará
+# Sinaliza que vai expor a porta que o Gunicorn usará
 EXPOSE 8000
 
 # Comando para iniciar a aplicação
-CMD ["./start.sh"]
+ENTRYPOINT ["/app/start.sh"]
