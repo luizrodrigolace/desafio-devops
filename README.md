@@ -1,3 +1,8 @@
+## Documentação no Github Pages: (https://luizrodrigolace.github.io/desafio-devops/)
+# Aplicação no Google Cloud (dev) : (https://meu-servico-dev-530960664428.us-central1.run.app/)
+# Aplicação no Google Cloud (prod): (https://meu-servico-prod-490168054765.us-central1.run.app/)
+
+
 # Desafio de DevOps Engineer
 
 Repositório de instrução para o desafio técnico para a vaga de Pessoa Engenheira DevOps.
