@@ -1,14 +1,21 @@
-provider "google" {
-  credentials = file("../modules/cloud_run_service/desafio-devops-dev-51cc0f412da9.json")
-  project     = "desafio-devops-dev"
-  region      = "us-central1"
+module "network" {
+  source = "../modules/network"
+
+  environment           = "dev"
+  region                = "southamerica-east1"  # Região diferente para dev
+  cloud_run_service_name = module.cloud_run_dev.service_name
+  allowed_ips           = var.allowed_ips
 }
 
-module "cloud_run_service" {
-  source                = "../modules/cloud_run_service"
-  service_name          = "meu-servico-dev"
-  image                 = "gcr.io/desafio-devops-dev/meu-servico:latest"
-  region                = "us-central1"
-  service_account_email = "github-actions-deployer@desafio-devops-dev.iam.gserviceaccount.com"
-  project_id            = "desafio-devops-dev"
+variable "allowed_ips" {
+  type    = list(string)
+  default = [
+    "177.220.180.15/32",   # IP do escritório
+    "45.179.105.0/24",     # Faixa de desenvolvimento
+    "${data.http.current_ip.body}/32"
+  ]
+}
+
+data "http" "current_ip" {
+  url = "https://ifconfig.me/ip"
 }

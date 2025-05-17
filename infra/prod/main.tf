@@ -1,23 +1,21 @@
-# Configuração específica para produção
+module "network" {
+  source = "../modules/network"
 
-provider "google" {
-  project     = "desafio-devops-prod"
-  region      = "us-central1"
-  credentials = file("../modules/cloud_run_service/desafio-devops-prod-9d3deecc8f58.json")
+  environment           = "prod"
+  region                = "us-central1"
+  cloud_run_service_name = module.cloud_run_prod.service_name
+  allowed_ips           = var.allowed_ips
 }
 
-module "cloud_run_prod" {
-  source = "../modules/cloud_run_service"
+variable "allowed_ips" {
+  type    = list(string)
+  default = [
+    "200.150.100.50/32",   # IP corporativo
+    "189.45.210.0/24",     # Faixa permitida
+    "${data.http.current_ip.body}/32" # IP atual
+  ]
+}
 
-  # Parâmetros específicos do ambiente prod
-  region               = "us-central1"
-  service_name          = "meu-servico-prod"
-  image                 = "us-central1-docker.pkg.dev/desafio-devops-prod/meu-servico/meu-servico:latest"
-  service_account_email = "terraform-prod@desafio-devops-prod.iam.gserviceaccount.com"
-  project_id            = "desafio-devops-prod"
-  allow_public_access   = true
-  cpu_limit             = "2"
-  memory_limit          = "1Gi"
-  min_instances         = 1
-  max_instances         = 5
+data "http" "current_ip" {
+  url = "https://ifconfig.me/ip"
 }
