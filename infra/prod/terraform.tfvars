@@ -1,0 +1,10 @@
+project_id            = "desafio-devops-prod"
+service_name          = "meu-servico-prod"
+region                = "us-central1"
+image                 = "us-central1-docker.pkg.dev/desafio-devops-prod/meu-servico/meu-servico:latest"
+service_account_email = "terraform-prod@desafio-devops-prod.iam.gserviceaccount.com"
+allow_public_access   = true
+cpu_limit             = "2"
+memory_limit          = "1Gi"
+min_instances         = 1
+max_instances         = 5
